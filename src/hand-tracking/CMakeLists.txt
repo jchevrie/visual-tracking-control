@@ -25,15 +25,19 @@ if(NOT EIGEN3_FOUND)
     find_package(Eigen3 REQUIRED)
 endif()
 
+set(BayesFilters_DIR_TMP ${BayesFilters_DIR}) # Temporary save user defined lib location (will be overwritten by find_package if version mismatch)
 find_package(BayesFilters 0.9.0 QUIET)
 if(NOT BayesFilters_FOUND)
     message(STATUS "Did not found required master release of BayesFilters. Looking for devel version.")
+    set(BayesFilters_DIR ${BayesFilters_DIR_TMP} CACHE string "The directory containing a CMake configuration file for BayesFilters." FORCE) # Reload user defined lib location
     find_package(BayesFilters 0.9.100 REQUIRED)
 endif()
 
+set(SuperimposeMesh_DIR_TMP ${SuperimposeMesh_DIR}) # Temporary save user defined lib location (will be overwritten by find_package if version mismatch)
 find_package(SuperimposeMesh 0.9.4.0 QUIET)
 if(NOT SuperimposeMesh_FOUND)
     message(STATUS "Did not found required master release of SuperimposeMesh. Looking for devel version.")
+    set(SuperimposeMesh_DIR ${SuperimposeMesh_DIR_TMP} CACHE string "The directory containing a CMake configuration file for SuperimposeMesh." FORCE) # Reload user defined lib location
     find_package(SuperimposeMesh 0.10.100.0 REQUIRED)
 endif()
 
